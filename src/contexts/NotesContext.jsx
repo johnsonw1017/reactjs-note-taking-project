@@ -12,6 +12,12 @@ const initialNotesData = [
     }
 ]
 
+/**
+ * 
+ * @param {*} previousState 
+ * @param {*} instructions .type determines how we edit the state
+ * @returns New state based on instructions provided
+ */
 const notesReducer = (previousState, instructions) => {
     let stateEditable = [...previousState];
 
@@ -37,9 +43,11 @@ const notesReducer = (previousState, instructions) => {
     }
 }
 
+// how to make reducer state and dispatch global
 export const NoteDataContext = createContext(null);
 export const NoteDispatchContext = createContext(null);
 
+// Custom hooks provides direct access to one part of the reducer
 export function useNoteData(){
     return useContext(NoteDataContext);
 }
@@ -48,7 +56,14 @@ export function useNoteDispatch(){
     return useContext(NoteDispatchContext);
 }
 
+/**
+ * NotesProvider wraps around the component tree.
+ * Any child component has access to this not data via useNoteData and useNoteDispatch
+ * @param {*} props props.children should should be a JSX element. This NotesProvider wraps around that element.
+ */
 export default function NotesProvider(props){
+
+    //    [readOnlyData, functionToModifyData] = userReducer(functionToModifyData, initialDefaultData)
     const [notesData, notesDispatch] = useReducer(notesReducer, initialNotesData);
 
     return (
