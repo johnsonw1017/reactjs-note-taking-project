@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createContext, useContext, useReducer } from "react";
+import { useLocalStorage } from "react-use";
 
 const initialNotesData = [
     {
         id: 1,
-        title: "Welcome to thr Note Taker!",
+        title: "Welcome to the Note Taker!",
         description: "Make your notes here!",
         isCompleted: false,
         dueDate: new Date().setDate(new Date().getDate() + 1), // Current time but one day in the future
@@ -65,6 +66,18 @@ export default function NotesProvider(props){
 
     //    [readOnlyData, functionToModifyData] = userReducer(functionToModifyData, initialDefaultData)
     const [notesData, notesDispatch] = useReducer(notesReducer, initialNotesData);
+
+    //                                                          keyInLocalStorage, defaultDataIfKeyIsNotFound
+    const [persistentData, setPersistentData] = useLocalStorage('notes', initialNotesData);
+
+    useEffect(() => {
+        console.log("Local Storage: " + persistentData);
+    }, [persistentData]);
+
+    // Autosave any changes to notes from reducer state into local storage
+    useEffect(() => {
+        setPersistentData(notesData);
+    }, [notesData]);
 
     return (
         <NoteDataContext.Provider value ={notesData}>
