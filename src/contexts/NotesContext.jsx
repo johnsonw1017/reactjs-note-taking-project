@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useContext, useReducer } from "react";
 
 const initialNotesData = [
@@ -6,7 +7,7 @@ const initialNotesData = [
         title: "Welcome to thr Note Taker!",
         description: "Make your notes here!",
         isCompleted: false,
-        dueDate: new Date.setDate(new Date().getDate() + 1), // Current time but one day in the future
+        dueDate: new Date().setDate(new Date().getDate() + 1), // Current time but one day in the future
         createdAtDate: Date.now()
     }
 ]
@@ -34,4 +35,27 @@ const notesReducer = (previousState, instructions) => {
             console.log("Invalid instruction type provided, it was: " + instructions.type);
             return previousState
     }
+}
+
+export const NoteDataContext = createContext(null);
+export const NoteDispatchContext = createContext(null);
+
+export function useNoteData(){
+    return useContext(NoteDataContext);
+}
+
+export function useNoteDispatch(){
+    return useContext(NoteDispatchContext);
+}
+
+export default function NotesProvider(props){
+    const [notesData, notesDispatch] = useReducer(notesReducer, initialNotesData);
+
+    return (
+        <NoteDataContext.Provider value ={notesData}>
+            <NoteDispatchContext.Provider value={notesDispatch}>
+                {props.children}
+            </NoteDispatchContext.Provider>
+        </NoteDataContext.Provider>
+    )
 }
