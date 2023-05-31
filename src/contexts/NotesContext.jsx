@@ -84,6 +84,7 @@ export default function NotesProvider(props){
 
     useEffect(() => {
         notesDispatch({type: "setup", data: persistentData});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
