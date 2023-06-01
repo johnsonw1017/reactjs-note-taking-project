@@ -4,7 +4,7 @@ export default function NoteForm(prop){
 
     const [localTitle, setLocalTitle] = useState("");
     const [localDescription, setLocalDescription] = useState("");
-    const [localIsCompleted, setLocalIsCompleted] = useState("");
+    const [localIsCompleted, setLocalIsCompleted] = useState(false);
     const [localDueDate, setLocalDueDate] = useState(new Date().setDate(new Date().getDate() + 1));
     
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNoteData } from "../contexts/NotesContext"
 import NoteDisplay from "../components/NoteDisplay";
+import NoteParent from "../components/NoteParent";
 
 
 export default function Homepage(props){
@@ -22,7 +23,7 @@ export default function Homepage(props){
             {globalNotesData.map((note) => {
                 return(
                 <div key={note.id}>
-                    <NoteDisplay id={note.id}/>
+                    <NoteParent id={note.id}/>
                 </div>
                 )
             })}
