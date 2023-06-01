@@ -1,5 +1,6 @@
 import React from "react";
 import { useNoteData } from "../contexts/NotesContext"
+import NoteDisplay from "../components/NoteDisplay";
 
 
 export default function Homepage(props){
@@ -21,12 +22,7 @@ export default function Homepage(props){
             {globalNotesData.map((note) => {
                 return(
                 <div key={note.id}>
-                    <h4>{note.title}</h4>
-                    <p>{note.description}</p>
-                    <p>{note.isCompleted ? "COMPLETE" : "NOT YET DONE"}</p>
-                    <input type="checkbox" disabled="disabled" value={note.isCompleted}/>
-                    <h5>Due Date: {new Date(note.dueDate).toLocaleDateString()}</h5>
-                    <h5>Created At: {new Date(note.createdAtDate).toLocaleDateString()}</h5>
+                    <NoteDisplay id={note.id}/>
                 </div>
                 )
             })}
