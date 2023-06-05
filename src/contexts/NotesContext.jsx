@@ -40,7 +40,16 @@ const notesReducer = (previousState, instructions) => {
 
         case "update":
             console.log("TODO: Update specific note and overwrite it in state");
-            break;
+
+            // Find the existing note, overwrite it and return it
+
+            let targetNoteIndex = stateEditable.findIndex(globalSpecificNote =>{
+                return globalSpecificNote.id === instructions.updatedNote.id;
+            });
+
+            stateEditable[targetNoteIndex] = instructions.updatedNote;
+            return stateEditable
+            
         case "sortByDueDate":
             console.log("TODO: Sorted state data by due date");
             break;
