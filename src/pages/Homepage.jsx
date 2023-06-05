@@ -1,7 +1,7 @@
 import React from "react";
-import { useNoteData } from "../contexts/NotesContext"
-import NoteDisplay from "../components/NoteDisplay";
+import { useNoteData } from "../contexts/NotesContext";
 import NoteParent from "../components/NoteParent";
+import NoteForm from "../components/NoteForm";
 
 
 export default function Homepage(props){
@@ -15,8 +15,7 @@ export default function Homepage(props){
 
             {/* Note Count Component */}
             <h3>We have {globalNotesData.length} notes in storage!</h3>
-
-            {/* Note Form Component */}
+            <NoteForm />
 
             {/* List Of All Notes Component */}
             <h3>List of All Notes:</h3>
