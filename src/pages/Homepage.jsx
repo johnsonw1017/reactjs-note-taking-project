@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNoteData, useNoteDispatch } from "../contexts/NotesContext";
 import NoteParent from "../components/NoteParent";
 import NoteForm from "../components/NoteForm";
+import { getNotes } from "../services/notesServices";
 
 
 export default function Homepage(props){
@@ -11,9 +12,7 @@ export default function Homepage(props){
     const globalNotesDispatch = useNoteDispatch();
 
     useEffect(() => {
-        fetch("http://localhost:3001/notes")
-        .then(response => response.json())
-        .then(data => globalNotesDispatch({type:"setup", data: data}))
+        getNotes().then(data => globalNotesDispatch({type:"setup", data: data}))
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

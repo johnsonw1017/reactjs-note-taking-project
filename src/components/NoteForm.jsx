@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNoteData, useNoteDispatch } from "../contexts/NotesContext";
 import { Button } from "react-bootstrap";
+import { createNote } from "../services/notesServices";
 
 export default function NoteForm(props){
 
-    const {id} = props;
+    const {_id} = props;
     const globalNotesData = useNoteData();
     const globalNotesDispatch = useNoteDispatch();
 
@@ -17,7 +18,7 @@ export default function NoteForm(props){
     //finding a note if there is one, then prefill the form with existing data
     useEffect(() => {
         let tempNote = globalNotesData.find(globalSpecificNote => {
-            return globalSpecificNote.id === id;
+            return globalSpecificNote._id === _id;
         });
 
         if (tempNote){
@@ -29,11 +30,12 @@ export default function NoteForm(props){
         }
 
 
-    }, [globalNotesData, id])
+    }, [globalNotesData, _id])
 
     const saveNoteToGlobal = () => {
         let tempNewNote = {
-            id: id || globalNotesData.length + 1,
+            username: "matt",
+            _id: _id || globalNotesData.length + 1,
             title: localTitle,
             description: localDescription,
             isCompleted: localIsCompleted,
@@ -41,9 +43,10 @@ export default function NoteForm(props){
             createdAtDate:localCreatedAtDate
         }
 
-        if(id){
+        if(_id){
             globalNotesDispatch({type:"update", updatedNote: tempNewNote});
         } else {
+            createNote(tempNewNote).then(data => console.log(data));
             globalNotesDispatch({type:"create", newNote: tempNewNote});
         }
         

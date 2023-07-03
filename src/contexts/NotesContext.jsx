@@ -4,7 +4,7 @@ import { useLocalStorage } from "react-use";
 
 const initialNotesData = [
     {
-        id: 1,
+        _id: 1,
         title: "Welcome to the Note Taker!",
         description: "Make your notes here!",
         isCompleted: false,
