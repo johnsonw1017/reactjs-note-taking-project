@@ -103,6 +103,7 @@ export default function NotesProvider(props){
     // Autosave any changes to notes from reducer state into local storage
     useEffect(() => {
         setPersistentData(notesData);
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [notesData]);
 
     return (

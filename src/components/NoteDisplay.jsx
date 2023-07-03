@@ -3,7 +3,7 @@ import { useNoteData } from "../contexts/NotesContext";
 
 export default function NoteDisplay(props){
 
-    const {id} = props;
+    const {_id} = props;
     const [localNote, setLocalNote] = useState({});
 
     const globalNotesData = useNoteData();
@@ -12,9 +12,9 @@ export default function NoteDisplay(props){
         //on start, find the note in globalNotesData
         // that has an ID matching props.id
         setLocalNote(globalNotesData.find(globalSpecificNote => {
-            return globalSpecificNote.id === id
+            return globalSpecificNote._id === _id
         }));
-    }, [globalNotesData, id])
+    }, [globalNotesData, _id])
 
     return(
         <div>

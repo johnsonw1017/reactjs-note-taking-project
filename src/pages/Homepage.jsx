@@ -1,5 +1,5 @@
-import React from "react";
-import { useNoteData } from "../contexts/NotesContext";
+import React, { useEffect } from "react";
+import { useNoteData, useNoteDispatch } from "../contexts/NotesContext";
 import NoteParent from "../components/NoteParent";
 import NoteForm from "../components/NoteForm";
 
@@ -7,7 +7,15 @@ import NoteForm from "../components/NoteForm";
 export default function Homepage(props){
 
     const globalNotesData = useNoteData();
-    // const [someData, someFunction] = useContext(SomeContext);
+    // dispatch is our reducer for editing global notes state
+    const globalNotesDispatch = useNoteDispatch();
+
+    useEffect(() => {
+        fetch("http://localhost:3001/notes")
+        .then(response => response.json())
+        .then(data => globalNotesDispatch({type:"setup", data: data}))
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return(
         <div>
@@ -21,8 +29,8 @@ export default function Homepage(props){
             <h3>List of All Notes:</h3>
             {globalNotesData.map((note) => {
                 return(
-                <div key={note.id}>
-                    <NoteParent id={note.id}/>
+                <div key={note._id}>
+                    <NoteParent _id={note._id}/>
                 </div>
                 )
             })}
